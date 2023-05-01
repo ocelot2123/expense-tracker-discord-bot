@@ -5,15 +5,18 @@ module.exports = {
     .setName("add")
     .setDescription("Adds expense to database")
     .addStringOption((option) =>
-      option.setName("category").setDescription("category").setRequired(true)
+      option.setName("category").setDescription("category").setRequired(true),
     )
     .addNumberOption((option) =>
-      option.setName("amount").setDescription("amount in SGD").setRequired(true)
+      option
+        .setName("amount")
+        .setDescription("amount in SGD")
+        .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("remarks")
-        .setDescription("optional remarks about the spending")
+        .setDescription("optional remarks about the spending"),
     ),
   async execute(interaction: ChatInputCommandInteraction) {
     console.log(interaction.options);

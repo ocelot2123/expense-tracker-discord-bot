@@ -8,9 +8,6 @@ const config = {
   trailingComma: "all",
   tabWidth: 2,
   // pluginSearchDirs: false,
-  plugins: [
-    "prettier-plugin-tailwindcss",
-  ],
 };
 
 module.exports = config;
