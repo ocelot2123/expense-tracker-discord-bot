@@ -1,5 +1,5 @@
 import { REST, Routes } from "discord.js";
-import { token, clientId } from "./app";
+import { token, clientId } from "./constant";
 import fs from "fs";
 import path from "path";
 

@@ -1,18 +1,13 @@
-import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
-import dotenv from "dotenv";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import path from "path";
 import fs from "fs";
+import { token } from "./constant";
 
 declare module "discord.js" {
   interface Client {
     commands: Collection<string, any>;
   }
 }
-
-dotenv.config();
-
-export const token = process.env.DISCORD_TOKEN;
-export const clientId = "1102628311378710628";
 
 console.log("Bot is starting...");
 
