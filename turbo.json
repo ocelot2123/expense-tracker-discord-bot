@@ -9,6 +9,14 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "db:generate": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
+    "db:push": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
     }
   }
 }
