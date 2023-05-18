@@ -18,6 +18,6 @@
     "sourceMap": false,
     "baseUrl": "./"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": [".eslintrc.js", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

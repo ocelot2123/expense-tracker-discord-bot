@@ -6,12 +6,13 @@
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
     "lint": "turbo run lint",
+    "lint-fix": "turbo run lint-fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@types/prettier": "^2.7.2",
     "eslint": "^7.32.0",
-    "eslint-config": "*",
+    "eslint-config-custom": "^0.1.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
     "turbo": "latest",
@@ -21,6 +22,7 @@
   "packageManager": "npm@9.6.3",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/config/*"
   ]
 }

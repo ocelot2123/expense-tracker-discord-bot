@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
   root: true,
-  extends: ["eslint-config"], // uses the config in `packages/config/eslint`
+  extends: ["eslint-config-custom"], // uses the config in `packages/config/eslint`
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
@@ -11,11 +11,6 @@ const config = {
       "./apps/*/tsconfig.json",
       "./packages/*/tsconfig.json",
     ],
-  },
-  settings: {
-    next: {
-      rootDir: ["apps/nextjs"],
-    },
   },
 };
 
