@@ -11,8 +11,15 @@ datasource db {
 }
 
 model Expense {
-    id         String   @id @default(cuid())
-    category   String
-    amount     Float
-    created_at DateTime
+    id           String   @id @default(cuid())
+    category     Category @relation(fields: [categoryName], references: [name])
+    categoryName String
+    amount       Float
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+}
+
+model Category {
+    name    String    @unique
+    Expense Expense[]
 }
