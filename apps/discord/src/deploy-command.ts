@@ -1,10 +1,13 @@
 import { REST, Routes } from "discord.js";
-import { token, clientId } from "./constant";
+import { token, clientId } from "./constant.js";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const commands: any = [];
 // Grab all the command files from the commands directory you created earlier
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
@@ -17,9 +20,9 @@ for (const folder of commandFolders) {
   // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    if ("data" in command && "execute" in command) {
-      commands.push(command.data.toJSON());
+    const command = await import(filePath);
+    if ("data" in command.command && "execute" in command.command) {
+      commands.push(command.command.data.toJSON());
     } else {
       console.log(
         `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,

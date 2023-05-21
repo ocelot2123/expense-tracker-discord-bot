@@ -1,7 +1,8 @@
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import path from "path";
+import { fileURLToPath } from "url";
 import fs from "fs";
-import { token } from "./constant";
+import { token } from "./constant.js";
 
 declare module "discord.js" {
   interface Client {
@@ -14,6 +15,8 @@ console.log("Bot is starting...");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
 
@@ -24,9 +27,9 @@ for (const folder of commandFolders) {
     .filter((file) => file.endsWith(".ts"));
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    if ("data" in command && "execute" in command) {
-      client.commands.set(command.data.name, command);
+    const command = await import(filePath);
+    if ("data" in command.command && "execute" in command.command) {
+      client.commands.set(command.command.data.name, command);
     } else {
       console.log(
         `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
@@ -42,7 +45,7 @@ const eventFiles = fs
 
 for (const file of eventFiles) {
   const filePath = path.join(eventsPath, file);
-  const event = require(filePath);
+  const event = await import(filePath);
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args));
   } else {

@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "commonjs",
+    "target": "ES2020",
+    "module": "NodeNext",
     "rootDir": "./src/",
     "outDir": "./dist/",
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "importHelpers": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
@@ -15,7 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
     "typeRoots": ["node_modules/@types"],
-    "sourceMap": false,
+    "sourceMap": true,
     "baseUrl": "./"
   },
   "include": [".eslintrc.js", "**/*.ts", "**/*.tsx"],
