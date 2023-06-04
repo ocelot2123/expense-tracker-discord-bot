@@ -10,7 +10,6 @@ services:
       - "5433:5432"
     volumes:
       - expense-tracker-db:/var/lib/postgresql/data
-
 volumes:
   expense-tracker-db:
     driver: local

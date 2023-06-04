@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -42,10 +48,9 @@ const eventsPath = path.join(__dirname, "events");
 const eventFiles = fs
   .readdirSync(eventsPath)
   .filter((file) => file.endsWith(".ts"));
-
 for (const file of eventFiles) {
   const filePath = path.join(eventsPath, file);
-  const event = await import(filePath);
+  const event = (await import(filePath)).default;
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args));
   } else {

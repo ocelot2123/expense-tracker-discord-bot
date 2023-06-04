@@ -34,8 +34,17 @@ export const command: Command = {
         .setName("remarks")
         .setDescription("optional remarks about the spending"),
     ),
-  execute: async (interaction: ChatInputCommandInteraction) => {
-    console.log(interaction.options);
-    await interaction.reply("added!");
+  async execute(interaction: ChatInputCommandInteraction) {
+    const input_category = interaction.options.getString("category")!;
+    const input_amount = interaction.options.getNumber("amount")!;
+    const input_remark = interaction.options.getString("remarks");
+    await prisma.expense.create({
+      data: {
+        amount: input_amount,
+        remark: input_remark,
+        category: { connect: { name: input_category } },
+      },
+    });
+    await interaction.reply(`Added expense ${input_category} $${input_amount}`);
   },
 };

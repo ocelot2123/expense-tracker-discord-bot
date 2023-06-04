@@ -3,7 +3,7 @@
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "build": {
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/dist/**"]
     },
     "lint": {},
     "lint-fix": {},
@@ -18,6 +18,7 @@
     "db:push": {
       "inputs": ["prisma/schema.prisma"],
       "cache": false
-    }
+    },
+    "start": {}
   }
 }
