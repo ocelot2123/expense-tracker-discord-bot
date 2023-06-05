@@ -21,5 +21,6 @@ Simple expense tracking with Discord commands
 
 ## Usage
 
-1. `docker compose up -d` to start local postgres DB
-2. `npm start`
+1. Create discord bot and generate token and add it to /apps/discord/.env
+2. `docker compose up -d` to start local postgres DB
+3. `npm start`
