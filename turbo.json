@@ -20,5 +20,6 @@
       "cache": false
     },
     "start": {}
-  }
+  },
+  "globalEnv": ["DATABASE_URL", "DISCORD_TOKEN", "NODE_ENV"]
 }
