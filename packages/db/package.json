@@ -7,11 +7,11 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
-    "db:generate": "npm run with-env prisma generate",
-    "db:push": "npm run with-env prisma db push --skip-generate",
-    "dev": "npm run with-env prisma generate && npm run with-env prisma studio --port 5556",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "dev": "prisma studio --port 5556",
     "with-env": "dotenv -e ../../.env --",
-    "start": "npm run with-env prisma generate && npm run with-env prisma studio --port 5556"
+    "start": "prisma studio --port 5556"
   },
   "dependencies": {
     "@prisma/client": "^4.13.0"

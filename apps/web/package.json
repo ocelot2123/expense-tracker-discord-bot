@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "npm run with-env next build",
-    "dev": "PORT=4000 npm run with-env next dev",
+    "dev": "PORT=4321 npm run with-env next dev",
     "lint": "dotenv -v SKIP_ENV_VALIDATION=1 next lint",
-    "start": "PORT=4000 npm run with-env next start",
+    "start": "PORT=4321 npm run with-env next start",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
