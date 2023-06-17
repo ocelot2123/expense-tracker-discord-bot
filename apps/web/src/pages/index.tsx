@@ -14,6 +14,7 @@ import {
 const Home: NextPage = () => {
   const expenses = api.expense.getLast30DaysExpenses.useQuery();
   const categories = api.expense.getAllCategories.useQuery();
+  const total = expenses.data?.reduce((previousValue , cur) => previousValue  + (cur._sum.amount || 0), 0)
   return (
     <>
       <Head>
@@ -52,6 +53,7 @@ const Home: NextPage = () => {
                 ))}
             </TableBody>
           </Table>
+            Total spent in last 30 days: {total?.toFixed(2)}
         </div>
       </main>
     </>
