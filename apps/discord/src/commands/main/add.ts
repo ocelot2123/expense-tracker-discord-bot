@@ -38,6 +38,12 @@ export const command: Command = {
     const input_category = interaction.options.getString("category")!;
     const input_amount = interaction.options.getNumber("amount")!;
     const input_remark = interaction.options.getString("remarks");
+
+    const userId = interaction.user.id;
+    if (userId !== "520790514455412806" && userId !== "152047328524632065") {
+      await interaction.reply("David fuck off");
+      return;
+    }
     await prisma.expense.create({
       data: {
         amount: input_amount,
