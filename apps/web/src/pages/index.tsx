@@ -14,11 +14,14 @@ import {
 const Home: NextPage = () => {
   const expenses = api.expense.getLast30DaysExpenses.useQuery();
   const categories = api.expense.getAllCategories.useQuery();
-  const total = expenses.data?.reduce((previousValue , cur) => previousValue  + (cur._sum.amount || 0), 0)
+  const total = expenses.data?.reduce(
+    (previousValue, cur) => previousValue + (cur._sum.amount || 0),
+    0
+  );
   return (
     <>
       <Head>
-        <title>Edward and Linda's Expense tracker</title>
+        <title>Edward and Linda&#39;s Expense tracker</title>
         <meta name="description" content="Edward and Linda's Expense tracker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -44,16 +47,19 @@ const Home: NextPage = () => {
                       {expenses.data.filter(
                         (expense) => expense.categoryName === category.name
                       )[0]?._sum.amount
-                        ? expenses.data.filter(
-                            (expense) => expense.categoryName === category.name
-                          )[0]?._sum.amount
+                        ? expenses.data
+                            .filter(
+                              (expense) =>
+                                expense.categoryName === category.name
+                            )[0]
+                            ?._sum.amount?.toFixed(2)
                         : 0}
                     </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
-            Total spent in last 30 days: {total?.toFixed(2)}
+          Total spent in last 30 days: {total?.toFixed(2)}
         </div>
       </main>
     </>
