@@ -51,6 +51,10 @@ export const command: Command = {
         category: { connect: { name: input_category } },
       },
     });
-    await interaction.reply(`Added expense ${input_category} $${input_amount}`);
+    await interaction.reply(
+      `Added expense ${input_category} $${input_amount}${
+        input_remark ? ` ${input_remark}` : ""
+      }`,
+    );
   },
 };
