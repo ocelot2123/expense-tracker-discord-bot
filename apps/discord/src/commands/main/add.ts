@@ -44,6 +44,11 @@ export const command: Command = {
       await interaction.reply("David fuck off");
       return;
     }
+    await interaction.reply(
+      `Added expense ${input_category} $${input_amount}${
+        input_remark ? ` ${input_remark}` : ""
+      }`,
+    );
     await prisma.expense.create({
       data: {
         amount: input_amount,
@@ -51,10 +56,5 @@ export const command: Command = {
         category: { connect: { name: input_category } },
       },
     });
-    await interaction.reply(
-      `Added expense ${input_category} $${input_amount}${
-        input_remark ? ` ${input_remark}` : ""
-      }`,
-    );
   },
 };
