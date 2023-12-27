@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardTitle } from "./ui/card";
+
 export function MonthlyExpenses() {
   const expenses = api.expense.getLast30DaysExpenses.useQuery();
   const categories = api.expense.getAllCategories.useQuery();
@@ -16,7 +17,7 @@ export function MonthlyExpenses() {
     0
   );
   return (
-    <Card className="bg-inherit p-4 text-current">
+    <Card className="h-full bg-inherit p-4 text-current">
       <CardTitle className="pb-2 text-center">Last 30 Days Expenses</CardTitle>
       Total spent in last 30 days: {total?.toFixed(2)}
       <Table>
