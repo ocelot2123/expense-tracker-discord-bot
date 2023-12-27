@@ -44,7 +44,9 @@ export function KeyStats() {
         </TableBody>
         <TableBody>
           <TableRow key={"top-category-amount"}>
-            <TableCell>{"Top spending category amount"}</TableCell>
+            <TableCell>{`${
+              topCategory?.categoryName || "Category"
+            } amount spent`}</TableCell>
             <TableCell>{topCategory?._sum.amount}</TableCell>
           </TableRow>
         </TableBody>
