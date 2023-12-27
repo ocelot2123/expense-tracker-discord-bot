@@ -2,12 +2,12 @@ import { api } from "@/utils/api";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Card, CardTitle } from "./ui/card";
 export function MonthlyExpenses() {
   const expenses = api.expense.getLast30DaysExpenses.useQuery();
   const categories = api.expense.getAllCategories.useQuery();
@@ -16,9 +16,10 @@ export function MonthlyExpenses() {
     0
   );
   return (
-    <div className="w-1/2">
+    <Card className="bg-inherit p-4 text-current">
+      <CardTitle className="pb-2 text-center">Last 30 Days Expenses</CardTitle>
+      Total spent in last 30 days: {total?.toFixed(2)}
       <Table>
-        <TableCaption>Last 30 Days Expenses</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Category</TableHead>
@@ -48,7 +49,6 @@ export function MonthlyExpenses() {
             ))}
         </TableBody>
       </Table>
-      Total spent in last 30 days: {total?.toFixed(2)}
-    </div>
+    </Card>
   );
 }
