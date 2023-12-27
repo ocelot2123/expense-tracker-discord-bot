@@ -28,25 +28,27 @@ export function MonthlyExpenses() {
         </TableHeader>
         <TableBody>
           {expenses.data &&
-            categories.data?.map((category) => (
-              <TableRow key={category.name}>
-                <TableCell>
-                  {category.name.charAt(0).toUpperCase() +
-                    category.name.slice(1)}
-                </TableCell>
-                <TableCell>
-                  {expenses.data.filter(
-                    (expense) => expense.categoryName === category.name
-                  )[0]?._sum.amount
-                    ? expenses.data
-                        .filter(
-                          (expense) => expense.categoryName === category.name
-                        )[0]
-                        ?._sum.amount?.toFixed(2)
-                    : 0}
-                </TableCell>
-              </TableRow>
-            ))}
+            categories.data?.map((category) =>
+              expenses.data.filter(
+                (expense) => expense.categoryName === category.name
+              )[0]?._sum.amount ? (
+                <TableRow key={category.name}>
+                  <TableCell>
+                    {category.name.charAt(0).toUpperCase() +
+                      category.name.slice(1)}
+                  </TableCell>
+                  <TableCell>
+                    {expenses.data
+                      .filter(
+                        (expense) => expense.categoryName === category.name
+                      )[0]
+                      ?._sum.amount?.toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                <></>
+              )
+            )}
         </TableBody>
       </Table>
     </Card>
