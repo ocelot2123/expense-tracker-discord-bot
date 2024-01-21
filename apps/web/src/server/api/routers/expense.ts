@@ -1,4 +1,5 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { getDayInSeconds } from "@/utils/getDayInSeconds";
 
 export const expenseRouter = createTRPCRouter({
   getAllCategories: publicProcedure.query(async ({ ctx }) => {
@@ -11,7 +12,7 @@ export const expenseRouter = createTRPCRouter({
         AND: [
           { createdAt: { lte: new Date() } },
           {
-            createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+            createdAt: { gte: new Date(Date.now() - getDayInSeconds(30)) },
           },
         ],
       },
@@ -27,7 +28,7 @@ export const expenseRouter = createTRPCRouter({
           { createdAt: { lte: new Date() } },
           {
             createdAt: {
-              gte: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+              gte: new Date(Date.now() - getDayInSeconds(365)),
             },
           },
         ],
@@ -37,15 +38,15 @@ export const expenseRouter = createTRPCRouter({
       },
     });
   }),
-  topCategory: publicProcedure.query(async ({ ctx }) => {
+  topGroup: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.expense.groupBy({
-      by: ["categoryName"],
+      by: ["remark"],
       where: {
         AND: [
           { createdAt: { lte: new Date() } },
           {
             createdAt: {
-              gte: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000),
+              gte: new Date(Date.now() - getDayInSeconds(30)),
             },
           },
         ],

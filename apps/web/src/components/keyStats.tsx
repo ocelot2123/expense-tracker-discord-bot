@@ -11,7 +11,7 @@ import {
 
 export function KeyStats() {
   const annualExpense = api.expense.annualExpense.useQuery().data?._sum.amount;
-  const topCategory = api.expense.topCategory.useQuery().data?.at(0);
+  const topGroup = api.expense.topGroup.useQuery().data?.at(0);
   return (
     <Card className="h-full bg-inherit p-4 text-current">
       <CardTitle className="pb-2 text-center">Key stats</CardTitle>
@@ -37,17 +37,17 @@ export function KeyStats() {
           </TableRow>
         </TableBody>
         <TableBody>
-          <TableRow key={"top-category-name"}>
-            <TableCell>{"Top spending category"}</TableCell>
-            <TableCell>{topCategory?.categoryName}</TableCell>
+          <TableRow key={"top-group-name"}>
+            <TableCell>{"Top spending group this month"}</TableCell>
+            <TableCell>{topGroup?.remark}</TableCell>
           </TableRow>
         </TableBody>
         <TableBody>
-          <TableRow key={"top-category-amount"}>
+          <TableRow key={"top-group-amount"}>
             <TableCell>{`${
-              topCategory?.categoryName || "Category"
+              topGroup?.remark || "Remark"
             } amount spent`}</TableCell>
-            <TableCell>{topCategory?._sum.amount}</TableCell>
+            <TableCell>{topGroup?._sum.amount}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
