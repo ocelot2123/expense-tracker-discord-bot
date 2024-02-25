@@ -15,9 +15,14 @@ export function MonthlyExpenses() {
   const total = api.expense.expensesTotalInThePastDays.useQuery({ days: 30 })
     .data?._sum.amount;
   return (
-    <Card className="h-full bg-inherit p-4 text-current">
-      <CardTitle className="pb-2 text-center">Last 30 Days Expenses</CardTitle>
-      Total spent in last 30 days: {total?.toFixed(2)}
+    <Card className="h-full bg-inherit p-6 text-current">
+      <CardTitle className="pb-4 text-center">
+        <div>
+          <div className="pb-2">Last 30 Days Expenses </div>
+          <div>Total spent in last 30 days: {total?.toFixed(2)}</div>
+        </div>
+      </CardTitle>
+
       <Table>
         <TableHeader>
           <TableRow>

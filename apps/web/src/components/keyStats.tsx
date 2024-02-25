@@ -15,12 +15,12 @@ export function KeyStats() {
   }).data?._sum.amount;
   const topGroup = api.expense.topGroup.useQuery().data?.at(0);
   return (
-    <Card className="h-full bg-inherit p-4 text-current">
-      <CardTitle className="pb-2 text-center">Key stats</CardTitle>
+    <Card className="h-full bg-inherit p-6 text-current">
+      <CardTitle className="pb-4 text-center">Key stats</CardTitle>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
+            <TableHead className="w-[200px]">Name</TableHead>
             <TableHead>Value</TableHead>
           </TableRow>
         </TableHeader>
