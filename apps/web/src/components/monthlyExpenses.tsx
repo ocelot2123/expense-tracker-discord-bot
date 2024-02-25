@@ -12,10 +12,8 @@ import { Card, CardTitle } from "./ui/card";
 export function MonthlyExpenses() {
   const expenses = api.expense.getLast30DaysExpenses.useQuery();
   const categories = api.expense.getAllCategories.useQuery();
-  const total = expenses.data?.reduce(
-    (previousValue, cur) => previousValue + (cur._sum.amount || 0),
-    0
-  );
+  const total = api.expense.expensesTotalInThePastDays.useQuery({ days: 30 })
+    .data?._sum.amount;
   return (
     <Card className="h-full bg-inherit p-4 text-current">
       <CardTitle className="pb-2 text-center">Last 30 Days Expenses</CardTitle>

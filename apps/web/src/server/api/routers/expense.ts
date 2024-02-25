@@ -1,5 +1,6 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { getDayInSeconds } from "@/utils/getDayInSeconds";
+import { z } from "zod";
 
 export const expenseRouter = createTRPCRouter({
   getAllCategories: publicProcedure.query(async ({ ctx }) => {
@@ -21,23 +22,25 @@ export const expenseRouter = createTRPCRouter({
       },
     });
   }),
-  annualExpense: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.expense.aggregate({
-      where: {
-        AND: [
-          { createdAt: { lte: new Date() } },
-          {
-            createdAt: {
-              gte: new Date(Date.now() - getDayInSeconds(365)),
+  expensesTotalInThePastDays: publicProcedure
+    .input(z.object({ days: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.expense.aggregate({
+        where: {
+          AND: [
+            { createdAt: { lte: new Date() } },
+            {
+              createdAt: {
+                gte: new Date(Date.now() - getDayInSeconds(input.days)),
+              },
             },
-          },
-        ],
-      },
-      _sum: {
-        amount: true,
-      },
-    });
-  }),
+          ],
+        },
+        _sum: {
+          amount: true,
+        },
+      });
+    }),
   topGroup: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.expense.groupBy({
       by: ["remark"],

@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/table";
 
 export function KeyStats() {
-  const annualExpense = api.expense.annualExpense.useQuery().data?._sum.amount;
+  const annualExpense = api.expense.expensesTotalInThePastDays.useQuery({
+    days: 365,
+  }).data?._sum.amount;
   const topGroup = api.expense.topGroup.useQuery().data?.at(0);
   return (
     <Card className="h-full bg-inherit p-4 text-current">
