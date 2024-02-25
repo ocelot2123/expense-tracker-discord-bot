@@ -49,6 +49,7 @@ export const expenseRouter = createTRPCRouter({
               gte: new Date(Date.now() - getDayInSeconds(30)),
             },
           },
+          { remark: { not: null } },
         ],
       },
       _sum: {
