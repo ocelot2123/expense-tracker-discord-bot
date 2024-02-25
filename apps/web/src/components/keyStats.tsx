@@ -14,6 +14,16 @@ export function KeyStats() {
     days: 365,
   }).data?._sum.amount;
   const topGroup = api.expense.topGroup.useQuery().data?.at(0);
+  const firstExpense = api.expense.getFirstExpense.useQuery().data;
+  const totalMonths =
+    new Date().getMonth() -
+    (firstExpense?.createdAt?.getMonth() ?? 0) +
+    12 *
+      (new Date().getFullYear() -
+        (firstExpense?.createdAt?.getFullYear() ?? 0));
+  const allExpenses = api.expense.expensesTotalInThePastDays.useQuery({
+    days: totalMonths * 60,
+  }).data?._sum.amount;
   return (
     <Card className="h-full bg-inherit p-6 text-current">
       <CardTitle className="pb-4 text-center">Key stats</CardTitle>
@@ -34,7 +44,7 @@ export function KeyStats() {
           <TableRow key={"average-monthly"}>
             <TableCell>{"Average monthly spend"}</TableCell>
             <TableCell>
-              {annualExpense ? (annualExpense / 12).toFixed(2) : 0}
+              {allExpenses ? (allExpenses / totalMonths).toFixed(2) : 0}
             </TableCell>
           </TableRow>
         </TableBody>

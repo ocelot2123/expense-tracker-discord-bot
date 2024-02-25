@@ -22,6 +22,13 @@ export const expenseRouter = createTRPCRouter({
       },
     });
   }),
+  getFirstExpense: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.expense.findFirst({
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  }),
   expensesTotalInThePastDays: publicProcedure
     .input(z.object({ days: z.number() }))
     .query(async ({ ctx, input }) => {
