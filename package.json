@@ -25,5 +25,8 @@
     "apps/*",
     "packages/*",
     "packages/config/*"
-  ]
+  ],
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2"
+  }
 }

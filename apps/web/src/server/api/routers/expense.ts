@@ -6,22 +6,29 @@ export const expenseRouter = createTRPCRouter({
   getAllCategories: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.category.findMany();
   }),
-  getLast30DaysExpenses: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.expense.groupBy({
-      by: ["categoryName"],
-      where: {
-        AND: [
-          { createdAt: { lte: new Date() } },
-          {
-            createdAt: { gte: new Date(Date.now() - getDayInSeconds(30)) },
-          },
-        ],
-      },
-      _sum: {
-        amount: true,
-      },
-    });
-  }),
+  getExpensesInThePastDays: publicProcedure
+    .input(z.object({ days: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.expense.groupBy({
+        by: ["categoryName"],
+        where: {
+          AND: [
+            { createdAt: { lte: new Date() } },
+            {
+              createdAt: {
+                gte: new Date(
+                  Date.now() -
+                    getDayInSeconds(input.days > 365 ? 365 : input.days)
+                ),
+              },
+            },
+          ],
+        },
+        _sum: {
+          amount: true,
+        },
+      });
+    }),
   getFirstExpense: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.expense.findFirst({
       orderBy: {
@@ -38,7 +45,10 @@ export const expenseRouter = createTRPCRouter({
             { createdAt: { lte: new Date() } },
             {
               createdAt: {
-                gte: new Date(Date.now() - getDayInSeconds(input.days)),
+                gte: new Date(
+                  Date.now() -
+                    getDayInSeconds(input.days > 365 ? 365 : input.days)
+                ),
               },
             },
           ],

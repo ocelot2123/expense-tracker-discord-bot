@@ -8,12 +8,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardTitle } from "./ui/card";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function MonthlyExpenses() {
-  const expenses = api.expense.getLast30DaysExpenses.useQuery();
+  const [dateRange, setDateRange] = useState(30);
+  const expenses = api.expense.getExpensesInThePastDays.useQuery({
+    days: dateRange,
+  });
   const categories = api.expense.getAllCategories.useQuery();
-  const total = api.expense.expensesTotalInThePastDays.useQuery({ days: 30 })
-    .data?._sum.amount;
+  const total = api.expense.expensesTotalInThePastDays.useQuery({
+    days: dateRange,
+  }).data?._sum.amount;
   return (
     <Card className="h-full bg-inherit p-6 text-current">
       <CardTitle className="pb-4 text-center">
@@ -53,6 +59,26 @@ export function MonthlyExpenses() {
                 <></>
               )
             )}
+          <TableRow>
+            <TableCell>
+              <Button
+                variant="link"
+                className="text-white"
+                onClick={() => setDateRange(30)}
+              >
+                Monthly
+              </Button>
+            </TableCell>
+            <TableCell>
+              <Button
+                variant="link"
+                className="text-white"
+                onClick={() => setDateRange(365)}
+              >
+                Annually
+              </Button>
+            </TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </Card>
