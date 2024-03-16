@@ -24,8 +24,10 @@ export function MonthlyExpenses() {
     <Card className="h-full bg-inherit p-6 text-current">
       <CardTitle className="pb-4 text-center">
         <div>
-          <div className="pb-2">Last 30 Days Expenses </div>
-          <div>Total spent in last 30 days: {total?.toFixed(2)}</div>
+          <div className="pb-2">Last {dateRange} Days Expenses </div>
+          <div>
+            Total spent in last {dateRange} days: {total?.toFixed(2)}
+          </div>
         </div>
       </CardTitle>
 
