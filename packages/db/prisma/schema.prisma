@@ -24,3 +24,35 @@ model Category {
     name    String    @unique
     Expense Expense[]
 }
+
+enum InvestmentEnum {
+    STOCK
+    CRYPTO
+    TCG
+    CASH
+}
+
+model Investment {
+    id        Int                  @id @default(autoincrement())
+    category  InvestmentEnum
+    symbol    String
+    purchases InvestmentPurchase[]
+    values    InvestmentValue[]
+}
+
+model InvestmentPurchase {
+    id           Int        @id @default(autoincrement())
+    amount       Int
+    cost         Int?
+    boughtAt     DateTime   @default(now())
+    Investment   Investment @relation(fields: [investmentId], references: [id])
+    investmentId Int
+}
+
+model InvestmentValue {
+    id           Int        @id @default(autoincrement())
+    currentValue Int
+    date         DateTime   @default(now())
+    Investment   Investment @relation(fields: [investmentId], references: [id])
+    investmentId Int
+}

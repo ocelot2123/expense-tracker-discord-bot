@@ -35,20 +35,16 @@ export const command: Command = {
         .setDescription("optional remarks about the spending"),
     ),
   async execute(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply();
     const input_category = interaction.options.getString("category")!;
     const input_amount = interaction.options.getNumber("amount")!;
     const input_remark = interaction.options.getString("remarks");
 
     const userId = interaction.user.id;
     if (userId !== "520790514455412806" && userId !== "152047328524632065") {
-      await interaction.reply("David fuck off");
+      await interaction.editReply("David fuck off");
       return;
     }
-    await interaction.reply(
-      `Added expense ${input_category} $${input_amount}${
-        input_remark ? ` ${input_remark}` : ""
-      }`,
-    );
     await prisma.expense.create({
       data: {
         amount: input_amount,
@@ -56,5 +52,10 @@ export const command: Command = {
         category: { connect: { name: input_category } },
       },
     });
+    await interaction.editReply(
+      `Added expense ${input_category} $${input_amount}${
+        input_remark ? ` ${input_remark}` : ""
+      }`,
+    );
   },
 };
