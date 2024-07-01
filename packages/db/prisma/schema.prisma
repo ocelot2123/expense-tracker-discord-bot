@@ -26,18 +26,18 @@ model Category {
 }
 
 enum InvestmentEnum {
-    STOCK
+    STOCKS
     CRYPTO
     TCG
     CASH
 }
 
 model Investment {
-    id        Int                  @id @default(autoincrement())
-    category  InvestmentEnum
-    symbol    String
-    purchases InvestmentPurchase[]
-    values    InvestmentValue[]
+    id           Int                  @id @default(autoincrement())
+    category     InvestmentEnum
+    symbol       String
+    currentValue Int?
+    purchases    InvestmentPurchase[]
 }
 
 model InvestmentPurchase {
@@ -47,12 +47,5 @@ model InvestmentPurchase {
     boughtAt     DateTime   @default(now())
     Investment   Investment @relation(fields: [investmentId], references: [id])
     investmentId Int
-}
-
-model InvestmentValue {
-    id           Int        @id @default(autoincrement())
-    currentValue Int
-    date         DateTime   @default(now())
-    Investment   Investment @relation(fields: [investmentId], references: [id])
-    investmentId Int
+    remark       String?
 }

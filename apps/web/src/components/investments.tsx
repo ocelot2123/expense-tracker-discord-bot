@@ -10,13 +10,18 @@ import {
 import { Card, CardTitle } from "./ui/card";
 
 export function Investments() {
-  const investments = api.investment.getInvestmentsBySymbol.useQuery();
-  console.log(investments.data && investments.data[0]?.amount);
+  const investments = api.investment.getInvestmentsByCategory.useQuery();
+  const netWorth =
+    investments.data?.reduce(
+      (acc, investment) => Number(investment.total_value) / 10000 + acc,
+      0
+    ) ?? 100;
   return (
     <Card className="h-full bg-inherit p-6 text-current">
       <CardTitle className="pb-4 text-center">
         <div>
           <div className="pb-2">Investments </div>
+          <div>Net Worth: ${netWorth.toFixed(0)} USD</div>
         </div>
       </CardTitle>
 
@@ -24,26 +29,34 @@ export function Investments() {
         <TableHeader>
           <TableRow>
             <TableHead>Category</TableHead>
-            <TableHead>Amount</TableHead>
-            <TableHead>Total Price</TableHead>
+            <TableHead>Value</TableHead>
+            <TableHead>Percent of portfolio</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {investments?.data?.map((investment) => (
-            <TableRow key={investment.symbol}>
-              <TableCell>
-                {investment.symbol.charAt(0).toUpperCase() +
-                  investment.symbol.slice(1)}
-              </TableCell>
-              <TableCell>{investment.amount.toString()}</TableCell>
-              <TableCell>
-                {(
-                  (Number(investment.amount) * investment.currentValue) /
-                  100
-                ).toString()}
-              </TableCell>
-            </TableRow>
-          ))}
+          {investments.data?.map((investment) => {
+            return (
+              <TableRow key={investment.category}>
+                <TableCell>
+                  {investment.category.charAt(0).toUpperCase() +
+                    investment.category.slice(1).toLowerCase()}
+                </TableCell>
+                <TableCell>
+                  {(Number(investment.total_value) / 10000).toString()}
+                </TableCell>
+                <TableCell>
+                  {(
+                    Number(investment.total_value) /
+                    10000 /
+                    netWorth
+                  ).toLocaleString(undefined, {
+                    style: "percent",
+                    minimumFractionDigits: 2,
+                  })}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </Card>
