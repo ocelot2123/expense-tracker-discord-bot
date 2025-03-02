@@ -22,7 +22,7 @@ export function KeyStats() {
       (new Date().getFullYear() -
         (firstExpense?.createdAt?.getFullYear() ?? 0));
   const allExpenses = api.expense.expensesTotalInThePastDays.useQuery({
-    days: totalMonths * 60,
+    days: totalMonths * 31,
   }).data?._sum.amount;
   return (
     <Card className="h-full bg-inherit p-6 text-current">
