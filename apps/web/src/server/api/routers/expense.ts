@@ -45,7 +45,10 @@ export const expenseRouter = createTRPCRouter({
             { createdAt: { lte: new Date() } },
             {
               createdAt: {
-                gte: new Date(Date.now() - getDayInSeconds(input.days)),
+                gte: new Date(
+                  Date.now() -
+                    getDayInSeconds(input.days > 10000 ? 10000 : input.days)
+                ),
               },
             },
           ],
